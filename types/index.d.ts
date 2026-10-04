@@ -1,0 +1,143 @@
+interface Feedback {
+  id: string;
+  interviewId: string;
+  totalScore: number;
+  categoryScores: Array<{
+    name: string;
+    score: number;
+    comment: string;
+  }>;
+  strengths: string[];
+  areasForImprovement: string[];
+  finalAssessment: string;
+  createdAt: string;
+  userId?: string;
+  transcript?: { role: string; content: string }[];
+}
+
+interface Interview {
+  id: string;
+  role: string;
+  level: string;
+  questions: string[];
+  techstack: string[];
+  createdAt: string;
+  userId: string;
+  type: string;
+  finalized: boolean;
+  coverImage?: string;
+}
+
+interface CreateFeedbackParams {
+  interviewId: string;
+  userId: string;
+  transcript: { role: string; content: string }[];
+  feedbackId?: string;
+}
+
+interface User {
+  name: string;
+  email: string;
+  id: string;
+}
+
+interface InterviewCardProps {
+  interviewId?: string;
+  userId?: string;
+  role: string;
+  type: string;
+  techstack: string[];
+  createdAt?: string;
+}
+
+interface AgentProps {
+  userName: string;
+  userId?: string;
+  interviewId?: string;
+  feedbackId?: string;
+  type: "generate" | "interview";
+  questions?: string[];
+}
+
+interface RouteParams {
+  params: Promise<Record<string, string>>;
+  searchParams: Promise<Record<string, string>>;
+}
+
+interface GetFeedbackByInterviewIdParams {
+  interviewId: string;
+  userId: string;
+}
+
+interface GetLatestInterviewsParams {
+  userId: string;
+  limit?: number;
+}
+
+interface SignInParams {
+  email: string;
+  idToken: string;
+}
+
+interface SignUpParams {
+  uid: string;
+  name: string;
+  email: string;
+  password: string;
+}
+
+type FormType = "sign-in" | "sign-up";
+
+interface InterviewFormProps {
+  interviewId: string;
+  role: string;
+  level: string;
+  type: string;
+  techstack: string[];
+  amount: number;
+}
+
+interface TechIconProps {
+  techStack: string[];
+}
+
+interface GenerateInterviewParams {
+  role: string;
+  level: string;
+  type: string;
+  techstack: string;
+  amount: number;
+}
+
+type ExerciseKind = "question" | "scenario" | "drill";
+type ExerciseDifficulty = "easy" | "medium" | "hard";
+
+interface Exercise {
+  id: string;
+  category: string;
+  title: string;
+  kind: ExerciseKind;
+  difficulty: ExerciseDifficulty;
+  prompt: string;
+  hint: string;
+  keyPoints: string[];
+}
+
+interface ExerciseAttempt {
+  answer: string;
+  score: number;
+  verdict: string;
+  strengths: string[];
+  improvements: string[];
+  modelAnswer: string;
+  createdAt: string;
+}
+
+interface ExerciseSet {
+  id: string;
+  interviewId: string;
+  userId: string;
+  createdAt: string;
+  exercises: Exercise[];
+  attempts: Record<string, ExerciseAttempt>;
+}
